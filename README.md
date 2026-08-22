@@ -11,13 +11,26 @@ Source code: https://github.com/SGMIA26/failure-raw
 
 ## 📁 Cấu trúc dự án
 ```
-index.html            # WebApp chính (mở file này để chạy)
-assets/css/style.css  # Toàn bộ style
-assets/js/app.js      # Logic: i18n VI/EN, quiz chấm điểm, form 3 bước, lưu Story vào localStorage
-interviews.html       # Bản nháp gốc (song ngữ, dark/mono)
-raw.html               # Bản nháp gốc (quiz chấm điểm, story archive)
+index.html               # WebApp chính (mở file này để chạy)
+assets/css/style.css     # Toàn bộ style
+assets/js/app.js         # Logic: i18n VI/EN, quiz chấm điểm, form 3 bước, gọi API
+functions/api/stories.js # Cloudflare Pages Function (POST/GET /api/stories) — backend thật, lưu vào D1
+interviews.html          # Bản nháp gốc (song ngữ, dark/mono)
+raw.html                 # Bản nháp gốc (quiz chấm điểm, story archive)
 ```
-`index.html` hợp nhất ưu điểm của cả hai bản nháp: song ngữ VI/EN, bài Business Autopsy chấm điểm thực, bộ câu hỏi phỏng vấn, archive câu chuyện và form gửi câu chuyện 3 bước. Dữ liệu gửi hiện lưu tạm ở `localStorage` (demo) — khi có backend, thay đoạn lưu trong `assets/js/app.js` bằng `fetch("/api/stories", ...)`.
+`index.html` hợp nhất ưu điểm của cả hai bản nháp: song ngữ VI/EN, bài Business Autopsy chấm điểm thực, bộ câu hỏi phỏng vấn, archive câu chuyện và form gửi câu chuyện 3 bước.
+
+## 🗄️ Backend (Cloudflare D1)
+Form "Gửi câu chuyện" lưu thật vào D1 database `failure-raw-db`, bảng `stories`, qua Pages Function tại `functions/api/stories.js`:
+- **POST /api/stories** — lưu câu chuyện mới với `status='pending'` (chưa công khai).
+- **GET /api/stories** — chỉ trả về câu chuyện có `status='published'`, dùng để hiển thị trong mục Câu chuyện.
+
+Điều này khớp với cam kết trên site ("nếu câu chuyện đủ thật, chúng tôi sẽ liên hệ phỏng vấn") — câu chuyện gửi lên **không tự động hiển thị công khai**, bạn cần duyệt trước. Cách duyệt: vào Cloudflare Dashboard → Workers & Pages → failure-raw → D1 → mở database `failure-raw-db`, chạy:
+```sql
+SELECT * FROM stories WHERE status = 'pending';        -- xem câu chuyện mới
+UPDATE stories SET status = 'published' WHERE id = X;   -- duyệt cho hiển thị công khai
+```
+Nếu API không phản hồi được (ví dụ mở `index.html` trực tiếp bằng file://, không qua Cloudflare), form sẽ tự fallback lưu vào `localStorage` để demo không bị vỡ.
 
 ## 🎯 Mục tiêu dự án
 Dự án này được xây dựng với tư duy "giải phẫu" thay vì "tư vấn":
