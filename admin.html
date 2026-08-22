@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>FAILURE/RAW — Admin</title>
+  <style>
+    :root {
+      --bg: #090909; --surface: #111111; --border: #292929; --text: #f3f3f0;
+      --muted: #8a8a8a; --accent: #ff4d1c; --green: #b7ff45; --danger: #ff3838;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text); min-height: 100vh;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 40px 20px;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 24px; }
+    h1 span { color: var(--accent); }
+    button, input { font: inherit; }
+    button { cursor: pointer; border: 0; border-radius: 999px; padding: 10px 18px; font-weight: 700; }
+    .btn-primary { background: var(--text); color: #000; }
+    .btn-primary:hover { background: var(--accent); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-muted { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+
+    #loginView { max-width: 360px; margin: 80px auto; text-align: center; }
+    #loginView input {
+      width: 100%; background: #141414; border: 1px solid var(--border); border-radius: 9px;
+      color: white; padding: 12px 14px; margin: 16px 0; outline: none;
+    }
+    #loginView input:focus { border-color: var(--accent); }
+    #loginError { color: var(--danger); font-size: 13px; min-height: 18px; margin-bottom: 8px; }
+
+    #appView { display: none; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 12px; flex-wrap: wrap; }
+    .filters { display: flex; gap: 8px; }
+    .filters button.active { background: var(--accent); color: #fff; }
+
+    .card {
+      border: 1px solid var(--border); background: var(--surface); border-radius: 12px;
+      padding: 20px; margin-bottom: 14px;
+    }
+    .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 10px; flex-wrap: wrap; }
+    .badge { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+    .badge.pending { background: rgba(255,196,0,.12); color: #ffc400; }
+    .badge.published { background: rgba(183,255,69,.12); color: var(--green); }
+    .badge.rejected { background: rgba(255,56,56,.12); color: var(--danger); }
+    .meta { color: var(--muted); font-size: 12px; }
+    .field { margin-bottom: 10px; font-size: 13px; }
+    .field b { color: var(--muted); font-weight: 700; display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+    .actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .empty { color: var(--muted); text-align: center; padding: 60px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div id="loginView">
+      <h1>FAILURE<span>/</span>RAW — Admin</h1>
+      <form id="loginForm">
+        <input id="passwordInput" type="password" placeholder="Mật khẩu quản trị" autofocus required />
+        <div id="loginError"></div>
+        <button type="submit" class="btn-primary" style="width:100%">Đăng nhập</button>
+      </form>
+    </div>
+
+    <div id="appView">
+      <div class="toolbar">
+        <h1>FAILURE<span>/</span>RAW — Duyệt câu chuyện</h1>
+        <div>
+          <button id="logoutBtn" class="btn-muted">Đăng xuất</button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="filters" id="filters">
+          <button data-filter="pending" class="btn-muted active">Chờ duyệt</button>
+          <button data-filter="published" class="btn-muted">Đã đăng</button>
+          <button data-filter="rejected" class="btn-muted">Đã từ chối</button>
+          <button data-filter="all" class="btn-muted">Tất cả</button>
+        </div>
+      </div>
+      <div id="list"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const loginView = document.getElementById('loginView');
+    const appView = document.getElementById('appView');
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const list = document.getElementById('list');
+    const filters = document.getElementById('filters');
+    let stories = [];
+    let currentFilter = 'pending';
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str ?? '';
+      return div.innerHTML;
+    }
+
+    async function loadStories() {
+      const res = await fetch('/api/admin/stories');
+      if (res.status === 401) {
+        loginView.style.display = 'block';
+        appView.style.display = 'none';
+        return;
+      }
+      const data = await res.json();
+      stories = data.stories || [];
+      loginView.style.display = 'none';
+      appView.style.display = 'block';
+      render();
+    }
+
+    function render() {
+      const filtered = currentFilter === 'all' ? stories : stories.filter(s => s.status === currentFilter);
+      if (filtered.length === 0) {
+        list.innerHTML = '<div class="empty">Không có câu chuyện nào.</div>';
+        return;
+      }
+      list.innerHTML = filtered.map(s => `
+        <div class="card">
+          <div class="card-head">
+            <span class="badge ${s.status}">${s.status}</span>
+            <span class="meta">#${s.id} · ${escapeHtml(s.business || '—')} · ${new Date(s.created_at + 'Z').toLocaleString('vi-VN')} · ${s.anonymous ? 'Ẩn danh' : 'Không ẩn danh'}</span>
+          </div>
+          <div class="field"><b>Ý tưởng ban đầu</b>${escapeHtml(s.idea)}</div>
+          <div class="field"><b>Giả định lớn nhất</b>${escapeHtml(s.assumption)}</div>
+          <div class="field"><b>Sai lầm lớn nhất</b>${escapeHtml(s.mistake)}</div>
+          <div class="field"><b>Khoảnh khắc vỡ trận</b>${escapeHtml(s.doomsday)}</div>
+          <div class="field"><b>Cái giá</b>${escapeHtml(s.money)} ${s.time ? '· ' + escapeHtml(s.time) : ''}</div>
+          <div class="field"><b>Lời nhắn</b>${escapeHtml(s.message)}</div>
+          <div class="actions">
+            ${s.status !== 'published' ? `<button class="btn-primary" data-id="${s.id}" data-status="published">Duyệt & đăng</button>` : ''}
+            ${s.status !== 'rejected' ? `<button class="btn-danger" data-id="${s.id}" data-status="rejected">Từ chối</button>` : ''}
+            ${s.status !== 'pending' ? `<button class="btn-muted" data-id="${s.id}" data-status="pending">Đưa về chờ duyệt</button>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    list.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-id]');
+      if (!btn) return;
+      btn.disabled = true;
+      const res = await fetch('/api/admin/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: Number(btn.dataset.id), status: btn.dataset.status }),
+      });
+      if (res.ok) await loadStories();
+      else btn.disabled = false;
+    });
+
+    filters.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-filter]');
+      if (!btn) return;
+      currentFilter = btn.dataset.filter;
+      [...filters.children].forEach(b => b.classList.toggle('active', b === btn));
+      render();
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.textContent = '';
+      const password = document.getElementById('passwordInput').value;
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        loginForm.reset();
+        await loadStories();
+      } else {
+        loginError.textContent = 'Sai mật khẩu.';
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      loginView.style.display = 'block';
+      appView.style.display = 'none';
+    });
+
+    loadStories();
+  </script>
+</body>
+</html>
