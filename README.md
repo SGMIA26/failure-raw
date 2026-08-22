@@ -5,7 +5,9 @@
 FAILURE/RAW là một dự án truyền thông thực chiến, tập trung vào việc mổ xẻ những thất bại trong kinh doanh mà ít ai dám nói ra. Chúng tôi không tôn vinh sự thành công hào nhoáng trên LinkedIn, chúng tôi học từ những vấp ngã thực tế.
 
 ## 🔗 Truy cập WebApp
-[Chèn link website của bạn tại đây - ví dụ: https://your-username.github.io/failure-raw/]
+👉 **https://failure-raw.pages.dev/**
+
+Source code: https://github.com/SGMIA26/failure-raw
 
 ## 📁 Cấu trúc dự án
 ```
@@ -27,7 +29,7 @@ Dự án này được xây dựng với tư duy "giải phẫu" thay vì "tư v
 Dự án được xây dựng với tinh thần **Minimalist & Performance**:
 * **Frontend:** HTML5, CSS3 (Modern Flexbox/Grid), Vanilla JavaScript.
 * **Design:** Dark-mode centric, mobile-first responsive.
-* **Deployment:** GitHub Pages / Vercel.
+* **Deployment:** GitHub (source) + Cloudflare Pages (hosting). Redeploy sau khi sửa code bằng: `npx wrangler pages deploy . --project-name failure-raw`.
 
 ## 🚀 Tính năng chính
 - **Responsive Design:** Trải nghiệm hoàn hảo từ màn hình điện thoại đến desktop.
