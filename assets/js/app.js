@@ -277,17 +277,32 @@
     if (formStep > 1) { formStep--; renderForm(); }
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validateFormStep()) return;
 
     const data = Object.fromEntries(new FormData(form).entries());
     data.anonymous = form.anonymous.checked;
-    data.submittedAt = new Date().toISOString();
 
-    const existing = JSON.parse(localStorage.getItem('failureRawStories') || '[]');
-    existing.push(data);
-    localStorage.setItem('failureRawStories', JSON.stringify(existing));
+    let savedToBackend = false;
+    try {
+      const res = await fetch('/api/stories', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      savedToBackend = res.ok;
+    } catch {
+      savedToBackend = false;
+    }
+
+    if (!savedToBackend) {
+      // Offline / local dev fallback: keep a demo copy in this browser only.
+      data.submittedAt = new Date().toISOString();
+      const existing = JSON.parse(localStorage.getItem('failureRawStories') || '[]');
+      existing.push(data);
+      localStorage.setItem('failureRawStories', JSON.stringify(existing));
+    }
 
     successMessage.classList.add('show');
     form.reset();
@@ -318,9 +333,30 @@
 
   const storyGrid = document.getElementById('storyGrid');
 
-  function renderStories() {
+  async function renderStories() {
+    const renderId = ++renderStories._id;
     storyGrid.innerHTML = '';
     seedStories.forEach(s => storyGrid.appendChild(makeStoryCard(s.tag[lang], s.title[lang], s.meta[lang], false)));
+
+    // Published stories from the real backend (curated/moderated by the site owner).
+    try {
+      const res = await fetch('/api/stories');
+      if (res.ok) {
+        const { stories } = await res.json();
+        if (renderId !== renderStories._id) return; // a newer render started meanwhile
+        stories.forEach(s => {
+          const tag = s.business || (lang === 'vi' ? 'Ẩn danh' : 'Anonymous');
+          const title = `"${(s.message || '').slice(0, 140)}"`;
+          const metaBits = [];
+          if (s.money) metaBits.push(`${lang === 'vi' ? 'Mất' : 'Lost'}: ${s.money}`);
+          if (s.time) metaBits.push(`${lang === 'vi' ? 'Thời gian' : 'Time'}: ${s.time}`);
+          storyGrid.appendChild(makeStoryCard(tag, title, metaBits.join(' · '), false));
+        });
+        return;
+      }
+    } catch {
+      // No backend reachable (e.g. static local preview) — fall through to the local demo copy below.
+    }
 
     const local = JSON.parse(localStorage.getItem('failureRawStories') || '[]');
     local.slice().reverse().forEach(s => {
@@ -333,6 +369,7 @@
       storyGrid.appendChild(makeStoryCard(`${dict[lang].localTag} · ${tag}`, title, metaBits.join(' · '), true));
     });
   }
+  renderStories._id = 0;
 
   function makeStoryCard(tag, title, meta, isLocal) {
     const el = document.createElement('article');
