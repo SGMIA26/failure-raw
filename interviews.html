@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FAILURE/RAW — Anonymous business failure stories and founder interviews.">
+  <title>FAILURE/RAW — Business Autopsy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+    :root{
+      --bg:#0a0a0a;--panel:#101010;--panel2:#151515;--text:#e0e0e0;
+      --muted:#777;--line:#303030;--red:#ff3e3e;--green:#8cff98;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Mono","Courier New",monospace;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    button,input,textarea,select{font:inherit}
+    .wrap{max-width:var(--max);margin:auto;padding:0 24px}
+    .top{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(10,10,10,.94);backdrop-filter:blur(8px);z-index:20}
+    nav{height:68px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700;letter-spacing:.08em}.brand b{color:var(--red)}
+    .navlinks{display:flex;gap:22px;font-size:12px;color:#aaa}.navlinks a:hover{color:#fff}
+    .lang{border:1px solid var(--line);background:transparent;color:#ddd;padding:8px 10px;cursor:pointer}
+    .hero{min-height:74vh;display:grid;align-items:center;padding:90px 0 70px;border-bottom:1px solid var(--line)}
+    .eyebrow{font-size:11px;color:var(--red);letter-spacing:.18em;text-transform:uppercase}
+    h1{font-size:clamp(48px,10vw,126px);line-height:.88;letter-spacing:-.08em;margin:18px 0 30px;max-width:1000px}
+    .hero p{max-width:720px;color:#aaa;font-size:15px}
+    .stamp{display:inline-block;margin-top:28px;border:1px solid var(--red);color:var(--red);padding:9px 12px;font-size:11px;letter-spacing:.12em}
+    section{padding:80px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:180px 1fr;gap:35px;margin-bottom:42px}
+    .section-no{color:var(--red);font-size:12px}.section-head h2{font-size:clamp(28px,5vw,54px);line-height:1;margin:0 0 14px;letter-spacing:-.05em}
+    .section-head p{margin:0;color:#888;max-width:720px}
+    .panel{border:1px solid var(--line);background:var(--panel)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+    .step{padding:18px;border-right:1px solid var(--line);color:#666;font-size:12px}
+    .step:last-child{border-right:0}.step.active{color:#fff;background:#171717}.step.active span{color:var(--red)}
+    .formbody{padding:30px}
+    .stepcontent{display:none}.stepcontent.active{display:block}
+    .question{margin:0 0 30px}.question label{display:block;font-size:13px;margin-bottom:9px}.hint{font-size:11px;color:#666;margin:-3px 0 10px}
+    input,textarea,select{width:100%;background:#0b0b0b;border:1px solid #353535;color:#eee;padding:14px;outline:0;border-radius:0}
+    input:focus,textarea:focus,select:focus{border-color:#aaa}
+    textarea{min-height:145px;resize:vertical}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .actions{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
+    .btn{border:1px solid #666;background:#ddd;color:#080808;padding:13px 20px;cursor:pointer;border-radius:0;font-weight:700;letter-spacing:.04em}
+    .btn:hover{background:#fff;transform:translateY(-1px)}
+    .btn.secondary{background:transparent;color:#ddd;border-color:#444}.btn.danger{background:var(--red);border-color:var(--red)}
+    .message{display:none;border:1px solid var(--green);color:var(--green);padding:16px;margin-top:18px;font-size:12px}
+    .message.show{display:block}
+    .questions{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+    .qcard{background:var(--panel);padding:24px}.qcard .n{color:var(--red);font-size:11px}.qcard h3{font-size:15px;margin:9px 0}.qcard p{font-size:12px;color:#888;margin:0}
+    .archive{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+    .manifesto{padding:30px;border:1px solid var(--line);background:var(--panel)}
+    .manifesto h3{font-size:24px;margin-top:0}.manifesto p{color:#999;font-size:13px}
+    .socials{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+    .social{background:var(--panel);padding:20px;display:flex;justify-content:space-between}.social:hover{background:#181818}.social span:last-child{color:var(--red)}
+    footer{padding:55px 0;color:#555;font-size:11px}
+    .ascii{color:#444;white-space:pre;overflow:auto;margin-bottom:22px}
+    @media(max-width:760px){
+      .wrap{padding:0 16px}.navlinks{display:none}.hero{min-height:auto;padding:75px 0 55px}
+      h1{font-size:56px}.section-head{grid-template-columns:1fr;gap:12px}.steps{grid-template-columns:1fr}
+      .step{border-right:0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}
+      .formbody{padding:20px}.grid2,.archive,.questions{grid-template-columns:1fr}.questions{gap:1px}
+      .actions{flex-direction:column}.btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#"><b>FAILURE</b>/RAW</a>
+      <div class="navlinks"><a href="#autopsy" data-i18n="nav1">AUTOPSY</a><a href="#interview" data-i18n="nav2">INTERVIEW</a><a href="#submit" data-i18n="nav3">SUBMIT</a></div>
+      <button class="lang" id="langBtn">VI / EN</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow" data-i18n="eyebrow">ANONYMOUS BUSINESS FAILURE ARCHIVE / VIETNAM</div>
+      <h1 data-i18n="heroTitle">FAILURE<br><span style="color:var(--red)">/RAW</span></h1>
+      <p data-i18n="heroText">Không phải nơi để kể thành công. Đây là nơi mổ xẻ những quyết định đã sai, những giả định đã chết và cái giá thật sự của việc xây dựng một doanh nghiệp.</p>
+      <div class="stamp" data-i18n="stamp">NO GURU. NO BS. JUST THE AUTOPSY.</div>
+    </div>
+  </section>
+
+  <section id="autopsy">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-no">01 / AUTOPSY</div>
+        <div><h2 data-i18n="autoTitle">MỔ XẺ DOANH NGHIỆP</h2><p data-i18n="autoText">3 bước. Không cần tên công ty. Không cần tô đẹp câu chuyện. Hãy bắt đầu từ thứ đã thực sự xảy ra.</p></div>
+      </div>
+      <div class="panel">
+        <div class="steps">
+          <div class="step active" data-step="1"><span>01</span> — <label data-i18n="s1">THE BET / VÁN CƯỢC</label></div>
+          <div class="step" data-step="2"><span>02</span> — <label data-i18n="s2">THE MISTAKE / SAI LẦM</label></div>
+          <div class="step" data-step="3"><span>03</span> — <label data-i18n="s3">THE DAMAGE / HẬU QUẢ</label></div>
+        </div>
+        <form id="autopsyForm" class="formbody">
+          <div class="stepcontent active" data-content="1">
+            <div class="question"><label data-i18n="q1">Ý tưởng khởi đầu là gì? / What was the original idea?</label><div class="hint" data-i18n="h1">Bạn nghĩ khách hàng sẽ mua thứ gì, và vì sao?</div><textarea name="idea" required></textarea></div>
+            <div class="question"><label data-i18n="q2">Giả định lớn nhất của bạn? / Your biggest assumption?</label><textarea name="assumption" required></textarea></div>
+          </div>
+          <div class="stepcontent" data-content="2">
+            <div class="question"><label data-i18n="q3">Lựa chọn sai lầm lớn nhất / Biggest wrong decision</label>
+              <select name="mistake" required>
+                <option value="" data-i18n="choose">— CHỌN MỘT / SELECT —</option>
+                <option data-i18n="m1">Sai sản phẩm / Wrong product</option>
+                <option data-i18n="m2">Sai thị trường / Wrong market</option>
+                <option data-i18n="m3">Sai người / Wrong people</option>
+                <option data-i18n="m4">Sai tiền / Wrong financial decision</option>
+                <option data-i18n="m5">Sai thời điểm / Wrong timing</option>
+                <option data-i18n="m6">Không dừng đúng lúc / Failed to stop</option>
+                <option data-i18n="m7">Khác / Other</option>
+              </select>
+            </div>
+            <div class="question"><label data-i18n="q4">Khoảnh khắc bạn biết mọi thứ sắp vỡ? / When did you know it was going down?</label><textarea name="doomsday" required></textarea></div>
+          </div>
+          <div class="stepcontent" data-content="3">
+            <div class="question"><label data-i18n="q5">Cái giá thực sự là gì? / What did it really cost?</label><div class="grid2"><input name="money" placeholder="Tiền / Money"><input name="time" placeholder="Thời gian / Time"></div></div>
+            <div class="question"><label data-i18n="q6">Lời nhắn cho một founder đang đi đúng con đường cũ của bạn / Message to a founder repeating your path</label><textarea name="message" required></textarea></div>
+            <div class="question"><label><input type="checkbox" required style="width:auto;margin-right:8px"> <span data-i18n="anon">Tôi đồng ý gửi câu chuyện ẩn danh để có thể được chọn cho phỏng vấn / I agree to anonymous use for a possible interview.</span></label></div>
+          </div>
+          <div class="actions"><button type="button" class="btn secondary" id="prev" data-i18n="back">← BACK</button><button type="button" class="btn" id="next" data-i18n="next">NEXT →</button><button type="submit" class="btn danger" id="submitBtn" style="display:none" data-i18n="submit">SUBMIT TO ARCHIVE</button></div>
+          <div class="message" id="success" data-i18n="success">✓ DỮ LIỆU ĐÃ ĐƯỢC GHI NHẬN VÀO ARCHIVE. CẢM ƠN BẠN ĐÃ NÓI THẬT.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="interview">
+    <div class="wrap">
+      <div class="section-head"><div class="section-no">02 / INTERVIEW</div><div><h2 data-i18n="intTitle">BỘ CÂU HỎI PHỎNG VẤN</h2><p data-i18n="intText">Đây là xương sống để biến một câu chuyện thất bại thành một cuộc phỏng vấn có chiều sâu.</p></div></div>
+      <div class="questions">
+        <article class="qcard"><div class="n">01</div><h3>THE BET / VÁN CƯỢC</h3><p>What did you believe? — Anh/chị đã tin điều gì đến mức dám bỏ tiền, thời gian và danh tiếng vào nó?</p></article>
+        <article class="qcard"><div class="n">02</div><h3>THE SIGNAL / TÍN HIỆU</h3><p>What did you see? — Tín hiệu đầu tiên cho thấy giả định đó có thể sai là gì?</p></article>
+        <article class="qcard"><div class="n">03</div><h3>THE DENIAL / PHỦ NHẬN</h3><p>Why didn't you stop? — Tại sao anh/chị vẫn tiếp tục dù đã thấy dấu hiệu?</p></article>
+        <article class="qcard"><div class="n">04</div><h3>THE COST / CÁI GIÁ</h3><p>What did failure cost? — Tiền, nợ, thời gian, quan hệ, sức khỏe, danh tiếng: cái giá nào đau nhất?</p></article>
+        <article class="qcard"><div class="n">05</div><h3>THE BREAK / ĐIỂM GÃY</h3><p>What finally broke? — Khoảnh khắc nào khiến anh/chị buộc phải thừa nhận: “Nó đã thất bại”?</p></article>
+        <article class="qcard"><div class="n">06</div><h3>THE LESSON / BÀI HỌC</h3><p>What would you do differently? — Nếu quay lại ngày đầu tiên với kiến thức hôm nay, anh/chị sẽ làm khác đúng 3 việc nào?</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="submit">
+    <div class="wrap">
+      <div class="section-head"><div class="section-no">03 / ARCHIVE</div><div><h2 data-i18n="archiveTitle">ĐỪNG KỂ THÀNH CÔNG.<br>KỂ SỰ THẬT.</h2><p data-i18n="archiveText">Bạn có một câu chuyện? Gửi ẩn danh. Nếu câu chuyện đủ thật, chúng tôi sẽ liên hệ để phỏng vấn.</p></div></div>
+      <div class="archive">
+        <div class="manifesto"><h3>“Failure is data.”</h3><p data-i18n="manifesto">Mục tiêu của FAILURE/RAW không phải phán xét founder. Chúng tôi thu thập những quyết định, tín hiệu và hậu quả để người khác không phải trả cùng một học phí.</p></div>
+        <div class="socials">
+          <a class="social" href="#" target="_blank"><span>FACEBOOK</span><span>↗</span></a>
+          <a class="social" href="#" target="_blank"><span>YOUTUBE</span><span>↗</span></a>
+          <a class="social" href="#" target="_blank"><span>TIKTOK</span><span>↗</span></a>
+          <a class="social" href="mailto:hello@failureraw.com"><span>EMAIL</span><span>↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ascii">+--------------------------------------------------+
+| FAILURE/RAW                                     |
+| REAL STORIES. REAL COST. NO POLISH.             |
++--------------------------------------------------+</div>
+    © 2026 FAILURE/RAW — Anonymous by default.
+  </div>
+</footer>
+
+<script>
+(() => {
+  const form = document.getElementById('autopsyForm');
+  const steps = [...document.querySelectorAll('.step')];
+  const contents = [...document.querySelectorAll('.stepcontent')];
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const submitBtn = document.getElementById('submitBtn');
+  const success = document.getElementById('success');
+  const langBtn = document.getElementById('langBtn');
+  let current = 1, lang = 'vi';
+
+  function render(){
+    steps.forEach((s,i)=>s.classList.toggle('active', i+1===current));
+    contents.forEach((c,i)=>c.classList.toggle('active', i+1===current));
+    prev.style.visibility = current===1 ? 'hidden' : 'visible';
+    next.style.display = current===3 ? 'none' : 'block';
+    submitBtn.style.display = current===3 ? 'block' : 'none';
+  }
+  function validateStep(){
+    const fields = contents[current-1].querySelectorAll('input,textarea,select');
+    for(const f of fields){
+      if(!f.checkValidity()){ f.reportValidity(); return false; }
+    }
+    return true;
+  }
+  next.onclick=()=>{ if(validateStep() && current<3){current++;render()} };
+  prev.onclick=()=>{ if(current>1){current--;render()} };
+  form.onsubmit=(e)=>{
+    e.preventDefault();
+    if(!validateStep()) return;
+    success.classList.add('show');
+    form.reset(); current=1; render();
+    setTimeout(()=>success.classList.remove('show'),6000);
+  };
+
+  const dict={
+    vi:{
+      nav1:'AUTOPSY',nav2:'INTERVIEW',nav3:'SUBMIT',eyebrow:'ANONYMOUS BUSINESS FAILURE ARCHIVE / VIETNAM',
+      heroTitle:'FAILURE<br><span style="color:var(--red)">/RAW</span>',
+      heroText:'Không phải nơi để kể thành công. Đây là nơi mổ xẻ những quyết định đã sai, những giả định đã chết và cái giá thật sự của việc xây dựng một doanh nghiệp.',
+      stamp:'NO GURU. NO BS. JUST THE AUTOPSY.',autoTitle:'MỔ XẺ DOANH NGHIỆP',autoText:'3 bước. Không cần tên công ty. Không cần tô đẹp câu chuyện. Hãy bắt đầu từ thứ đã thực sự xảy ra.',
+      s1:'THE BET / VÁN CƯỢC',s2:'THE MISTAKE / SAI LẦM',s3:'THE DAMAGE / HẬU QUẢ',
+      q1:'Ý tưởng khởi đầu là gì? / What was the original idea?',h1:'Bạn nghĩ khách hàng sẽ mua thứ gì, và vì sao?',
+      q2:'Giả định lớn nhất của bạn? / Your biggest assumption?',q3:'Lựa chọn sai lầm lớn nhất / Biggest wrong decision',
+      choose:'— CHỌN MỘT / SELECT —',q4:'Khoảnh khắc bạn biết mọi thứ sắp vỡ? / When did you know it was going down?',
+      q5:'Cái giá thực sự là gì? / What did it really cost?',q6:'Lời nhắn cho một founder đang đi đúng con đường cũ của bạn / Message to a founder repeating your path',
+      anon:'Tôi đồng ý gửi câu chuyện ẩn danh để có thể được chọn cho phỏng vấn / I agree to anonymous use for a possible interview.',
+      back:'← BACK',next:'NEXT →',submit:'SUBMIT TO ARCHIVE',
+      success:'✓ DỮ LIỆU ĐÃ ĐƯỢC GHI NHẬN VÀO ARCHIVE. CẢM ƠN BẠN ĐÃ NÓI THẬT.',
+      intTitle:'BỘ CÂU HỎI PHỎNG VẤN',intText:'Đây là xương sống để biến một câu chuyện thất bại thành một cuộc phỏng vấn có chiều sâu.',
+      archiveTitle:'ĐỪNG KỂ THÀNH CÔNG.<br>KỂ SỰ THẬT.',archiveText:'Bạn có một câu chuyện? Gửi ẩn danh. Nếu câu chuyện đủ thật, chúng tôi sẽ liên hệ để phỏng vấn.',
+      manifesto:'Mục tiêu của FAILURE/RAW không phải phán xét founder. Chúng tôi thu thập những quyết định, tín hiệu và hậu quả để người khác không phải trả cùng một học phí.'
+    },
+    en:{
+      nav1:'AUTOPSY',nav2:'INTERVIEW',nav3:'SUBMIT',eyebrow:'ANONYMOUS BUSINESS FAILURE ARCHIVE / VIETNAM',
+      heroTitle:'FAILURE<br><span style="color:var(--red)">/RAW</span>',
+      heroText:'Not a place to tell success stories. This is where we dissect bad decisions, dead assumptions, and the real cost of building a business.',
+      stamp:'NO GURU. NO BS. JUST THE AUTOPSY.',autoTitle:'BUSINESS AUTOPSY',autoText:'3 steps. No company name required. No polishing the story. Start with what actually happened.',
+      s1:'THE BET / VÁN CƯỢC',s2:'THE MISTAKE / SAI LẦM',s3:'THE DAMAGE / HẬU QUẢ',
+      q1:'What was the original idea? / Ý tưởng khởi đầu là gì?',h1:'What did you believe customers would buy, and why?',
+      q2:'Your biggest assumption? / Giả định lớn nhất của bạn?',q3:'Biggest wrong decision / Lựa chọn sai lầm lớn nhất',
+      choose:'— SELECT —',q4:'When did you know it was going down? / Khoảnh khắc bạn biết mọi thứ sắp vỡ?',
+      q5:'What did it really cost? / Cái giá thực sự là gì?',q6:'Message to a founder repeating your path / Lời nhắn cho một founder đang đi đúng con đường cũ của bạn',
+      anon:'I agree to submit this anonymously for possible interview use. / Tôi đồng ý gửi câu chuyện ẩn danh để có thể được chọn cho phỏng vấn.',
+      back:'← BACK',next:'NEXT →',submit:'SUBMIT TO ARCHIVE',
+      success:'✓ DATA RECORDED IN THE ARCHIVE. THANK YOU FOR TELLING THE TRUTH.',
+      intTitle:'INTERVIEW QUESTION SET',intText:'The backbone for turning a failure story into a deep, useful interview.',
+      archiveTitle:'DON’T TELL US SUCCESS.<br>TELL US THE TRUTH.',archiveText:'Have a story? Submit it anonymously. If the story is real enough, we will reach out for an interview.',
+      manifesto:'FAILURE/RAW is not here to judge founders. We collect decisions, signals and consequences so others do not have to pay the same tuition.'
+    }
+  };
+  function translate(){
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key=el.dataset.i18n;
+      if(dict[lang][key]!==undefined) el.innerHTML=dict[lang][key];
+    });
+    langBtn.textContent=lang==='vi'?'VI / EN':'EN / VI';
+    document.documentElement.lang=lang;
+  }
+  langBtn.onclick=()=>{lang=lang==='vi'?'en':'vi';translate()};
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  />
+
+  <title>FAILURE/RAW — Business Failure Stories</title>
+
+  <meta
+    name="description"
+    content="Real business failures. Real lessons. No polished success stories."
+  />
+
+  <style>
+    :root {
+      --bg: #090909;
+      --surface: #111111;
+      --surface-2: #171717;
+      --border: #292929;
+      --text: #f3f3f0;
+      --muted: #858585;
+      --accent: #ff4d00;
+      --accent-soft: rgba(255, 77, 0, 0.12);
+      --green: #b7ff45;
+      --danger: #ff3838;
+      --radius: 16px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    /* =========================
+       NAV
+    ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(9, 9, 9, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      font-size: 20px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-cta {
+      border: 1px solid var(--border);
+      padding: 9px 15px;
+      border-radius: 999px;
+      color: white !important;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: var(--accent);
+      filter: blur(180px);
+      opacity: 0.08;
+      right: -150px;
+      top: 50px;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    h1 {
+      max-width: 950px;
+      font-size: clamp(52px, 9vw, 112px);
+      line-height: 0.88;
+      letter-spacing: -0.075em;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    h1 .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px #777;
+    }
+
+    .hero-copy {
+      max-width: 630px;
+      margin-top: 35px;
+      color: #aaa;
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 35px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 800;
+      transition: 0.2s ease;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-dark {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: white;
+    }
+
+    .btn-dark:hover {
+      border-color: #555;
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stat {
+      padding: 28px 25px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat-number {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    /* =========================
+       SECTION
+    ========================= */
+
+    section {
+      padding: 110px 0;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+
+    .section-number {
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    h2 {
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 0.95;
+      letter-spacing: -0.065em;
+      text-transform: uppercase;
+    }
+
+    .section-description {
+      color: var(--muted);
+      max-width: 480px;
+      align-self: end;
+    }
+
+    /* =========================
+       ASSESSMENT
+    ========================= */
+
+    .assessment {
+      background: #0d0d0d;
+    }
+
+    .assessment-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 4px;
+      background: #242424;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 33.33%;
+      background: var(--accent);
+      transition: width 0.35s ease;
+    }
+
+    .assessment-content {
+      padding: clamp(25px, 5vw, 55px);
+    }
+
+    .step-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      font-weight: 850;
+      max-width: 800px;
+      margin-bottom: 35px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+    }
+
+    .answer {
+      width: 100%;
+      text-align: left;
+      background: #151515;
+      border: 1px solid var(--border);
+      color: #ddd;
+      padding: 18px 20px;
+      border-radius: 11px;
+      transition: 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .answer:hover {
+      border-color: #555;
+      background: #1b1b1b;
+    }
+
+    .answer.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: white;
+    }
+
+    .answer span:last-child {
+      color: var(--muted);
+    }
+
+    .assessment-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      gap: 15px;
+    }
+
+    .step-indicator {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .result {
+      display: none;
+      padding: 20px 0 0;
+    }
+
+    .result.active {
+      display: block;
+    }
+
+    .result-score {
+      font-size: 80px;
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: -0.08em;
+      color: var(--accent);
+    }
+
+    .result-title {
+      font-size: 34px;
+      font-weight: 900;
+      margin-top: 15px;
+    }
+
+    .result-text {
+      color: #aaa;
+      max-width: 650px;
+      margin-top: 12px;
+    }
+
+    /* =========================
+       STORIES
+    ========================= */
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .story-card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 32px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.25s ease;
+    }
+
+    .story-card:hover {
+      transform: translateY(-4px);
+      border-color: #444;
+    }
+
+    .story-tag {
+      color: var(--accent);
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+    }
+
+    .story-title {
+      font-size: 27px;
+      font-weight: 850;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin: 18px 0;
+    }
+
+    .story-meta {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================
+       SUBMIT
+    ========================= */
+
+    .submit-section {
+      background: #111;
+    }
+
+    .submit-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .submit-intro p {
+      color: var(--muted);
+      margin-top: 20px;
+      max-width: 450px;
+    }
+
+    .form {
+      background: #090909;
+      border: 1px solid var(--border);
+      padding: clamp(22px, 4vw, 40px);
+      border-radius: var(--radius);
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      background: #141414;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: white;
+      padding: 14px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+    }
+
+    textarea {
+      min-height: 170px;
+      resize: vertical;
+    }
+
+    .anonymous {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .anonymous input {
+      width: auto;
+      margin-top: 4px;
+    }
+
+    .success-message {
+      display: none;
+      border: 1px solid var(--green);
+      background: rgba(183, 255, 69, 0.06);
+      color: var(--green);
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    /* =========================
+       SOCIAL
+    ========================= */
+
+    .social {
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .social h2 {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .social p {
+      color: var(--muted);
+      margin: 20px auto 30px;
+      max-width: 500px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    .social-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      color: #555;
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 800px) {
+      .container {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .nav-inner {
+        height: 62px;
+      }
+
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .hero {
+        min-height: 600px;
+      }
+
+      h1 {
+        font-size: clamp(49px, 16vw, 82px);
+      }
+
+      .hero-copy {
+        font-size: 16px;
+      }
+
+      section {
+        padding: 75px 0;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat:last-child {
+        border-bottom: 0;
+      }
+
+      .section-header {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .submit-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .assessment-content {
+        padding: 24px 18px;
+      }
+
+      .assessment-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .assessment-footer .btn {
+        width: 100%;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .story-card {
+        padding: 24px;
+      }
+
+      .result-score {
+        font-size: 65px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <nav>
+    <div class="container nav-inner">
+
+      <a href="#" class="logo">
+        FAILURE<span>/</span>RAW
+      </a>
+
+      <div class="nav-links">
+        <a href="#assessment">Diagnosis</a>
+        <a href="#stories">Stories</a>
+        <a href="#submit">Submit</a>
+        <a href="#submit" class="nav-cta">Tell Your Story →</a>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main>
+
+    <section class="hero">
+      <div class="container">
+
+        <div class="eyebrow">
+          The Business Failure Project
+        </div>
+
+        <h1>
+          Nobody talks<br>
+          about the
+          <span class="outline">failure.</span>
+        </h1>
+
+        <p class="hero-copy">
+          We collect the stories entrepreneurs usually hide.
+          The bad decisions. The money lost. The people who left.
+          The businesses that didn't make it.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#assessment" class="btn btn-primary">
+            Diagnose My Business →
+          </a>
+
+          <a href="#submit" class="btn btn-dark">
+            Submit My Story
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         STATS
+    ========================== -->
+
+    <div class="stats">
+
+      <div class="container stats-grid">
+
+        <div class="stat">
+          <div class="stat-number">01</div>
+          <div class="stat-label">Failure before success</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Anonymous stories accepted</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Perfect entrepreneurs</div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         ASSESSMENT
+    ========================== -->
+
+    <section id="assessment" class="assessment">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <div>
+            <div class="section-number">01 / BUSINESS AUTOPSY</div>
+            <h2>
+              How badly<br>
+              are you hurt?
+            </h2>
+          </div>
+
+          <p class="section-description">
+            Three uncomfortable questions.
+            No consultants. No motivational bullshit.
+            Just an honest snapshot of where your business is today.
+          </p>
+
+        </div>
+
+
+        <div class="assessment-box">
+
+          <div class="progress">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+
+          <div class="assessment-content">
+
+            <div id="questionArea">
+
+              <div id="stepLabel" class="step-label">
+                Step 01 / 03
+              </div>
+
+              <div id="question" class="question"></div>
+
+              <div id="answers" class="answers"></div>
+
+              <div class="assessment-footer">
+
+                <div id="stepIndicator" class="step-indicator">
+                  Question 1 of 3
+                </div>
+
+                <button
+                  id="nextBtn"
+                  class="btn btn-primary"
+                  disabled
+                >
+                  Continue →
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div id="result" class="result">
+
+              <div class="step-label">
+                YOUR BUSINESS AUTOPSY
+              </div>
+
+              <div id="resultScore" class="result-score">
+                0%
+              </div>
+
+              <div id="resultTitle" class="result-title">
+                —
+              </div>
+
+              <p id="resultText" class="result-text">
+                —
+              </p>
+
+              <div class="hero-actions">
+
+                <button
+                  id="restartBtn"
+                  class="btn btn-dark"
+                >
+                  Run Again
+                </button>
+
+                <a
+                  href="#submit"
+                  class="btn btn-primary"
+                >
+                  Tell Your Story →
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         STORIES
+    ========================== -->
+
+    <section id="stories">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <div>
+            <div class="section-number">02 / THE ARCHIVE</div>
+
+            <h2>
+              Real stories.<br>
+              No bullshit.
+            </h2>
+          </div>
+
+          <p class="section-description">
+            Every failed company leaves something behind.
+            A lesson. A scar. A decision someone else doesn't have
+            to repeat.
+          </p>
+
+        </div>
+
+
+        <div class="story-grid">
+
+          <article class="story-card">
+
+            <div>
+              <div class="story-tag">
+                Retail / Anonymous
+              </div>
+
+              <div class="story-title">
+                "We had revenue.
+                We just didn't have a business."
+              </div>
+            </div>
+
+            <div class="story-meta">
+              Lost: $180,000 · Team: 7 · Status: Closed
+            </div>
+
+          </article>
+
+
+          <article class="story-card">
+
+            <div>
+              <div class="story-tag">
+                SaaS / Founder
+              </div>
+
+              <div class="story-title">
+                "I spent 14 months
+                building something nobody wanted."
+              </div>
+            </div>
+
+            <div class="story-meta">
+              Lost: 14 months · Team: 3 · Status: Pivoted
+            </div>
+
+          </article>
+
+
+          <article class="story-card">
+
+            <div>
+              <div class="story-tag">
+                F&amp;B / Anonymous
+              </div>
+
+              <div class="story-title">
+                "The restaurant was busy.
+                The bank account wasn't."
+              </div>
+            </div>
+
+            <div class="story-meta">
+              Lost: $95,000 · Team: 12 · Status: Closed
+            </div>
+
+          </article>
+
+
+          <article class="story-card">
+
+            <div>
+              <div class="story-tag">
+                E-Commerce / Founder
+              </div>
+
+              <div class="story-title">
+                "I thought more traffic
+                would fix everything."
+              </div>
+            </div>
+
+            <div class="story-meta">
+              Lost: $60,000 · Team: 4 · Status: Restarted
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SUBMIT STORY
+    ========================== -->
+
+    <section id="submit" class="submit-section">
+
+      <div class="container submit-grid">
+
+        <div class="submit-intro">
+
+          <div class="section-number">
+            03 / YOUR STORY
+          </div>
+
+          <h2>
+            Tell us<br>
+            what went<br>
+            wrong.
+          </h2>
+
+          <p>
+            Your failure may be exactly what another founder
+            needs to hear before making the same mistake.
+          </p>
+
+          <p>
+            No polished LinkedIn story.
+            No fake success ending.
+            Just what actually happened.
+          </p>
+
+        </div>
+
+
+        <form id="storyForm" class="form">
+
+          <div class="field">
+
+            <label for="business">
+              Business / Industry
+            </label>
+
+            <input
+              id="business"
+              type="text"
+              placeholder="e.g. F&B, SaaS, Retail..."
+              required
+            />
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="failure">
+              What went wrong?
+            </label>
+
+            <select id="failure" required>
+
+              <option value="">
+                Select the biggest failure
+              </option>
+
+              <option>
+                Bad product / no market
+              </option>
+
+              <option>
+                Cash flow
+              </option>
+
+              <option>
+                Wrong partner
+              </option>
+
+              <option>
+                Wrong team
+              </option>
+
+              <option>
+                Bad management
+              </option>
+
+              <option>
+                Scaling too early
+              </option>
+
+              <option>
+                Personal / founder issue
+              </option>
+
+              <option>
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="amount">
+              How much did you lose?
+            </label>
+
+            <input
+              id="amount"
+              type="text"
+              placeholder="Optional"
+            />
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="story">
+              Your story
+            </label>
+
+            <textarea
+              id="story"
+              placeholder="What happened? What did you believe at the time? What do you know now?"
+              required
+            ></textarea>
+
+          </div>
+
+
+          <label class="anonymous">
+
+            <input
+              id="anonymous"
+              type="checkbox"
+              checked
+            />
+
+            <span>
+              Keep my story completely anonymous.
+              Do not publish my name or identifying information.
+            </span>
+
+          </label>
+
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width:100%"
+          >
+            Submit Story →
+          </button>
+
+
+          <div
+            id="successMessage"
+            class="success-message"
+          >
+            ✓ Story received. Thank you for being honest.
+          </div>
+
+        </form>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SOCIAL
+    ========================== -->
+
+    <section class="social">
+
+      <div class="container">
+
+        <div class="section-number">
+          FOLLOW THE PROJECT
+        </div>
+
+        <h2>
+          Failure is not<br>
+          the end of the story.
+        </h2>
+
+        <p>
+          Follow the project as we document real entrepreneurs,
+          real failures and the lessons hidden inside them.
+        </p>
+
+        <div class="social-links">
+
+          <!-- CHANGE THESE URLS -->
+
+          <a
+            href="https://facebook.com/"
+            target="_blank"
+            class="social-link"
+          >
+            Facebook ↗
+          </a>
+
+          <a
+            href="https://instagram.com/"
+            target="_blank"
+            class="social-link"
+          >
+            Instagram ↗
+          </a>
+
+          <a
+            href="https://youtube.com/"
+            target="_blank"
+            class="social-link"
+          >
+            YouTube ↗
+          </a>
+
+          <a
+            href="https://tiktok.com/"
+            target="_blank"
+            class="social-link"
+          >
+            TikTok ↗
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div>
+        FAILURE/RAW © 2026
+      </div>
+
+      <div>
+        Built around the stories nobody posts.
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    const questions = [
+
+      {
+        question:
+          "What is the biggest problem in your business right now?",
+
+        answers: [
+          {
+            text: "I don't know why sales are falling.",
+            score: 4
+          },
+          {
+            text: "Sales exist, but there is no real profit.",
+            score: 3
+          },
+          {
+            text: "Cash flow is becoming dangerous.",
+            score: 5
+          },
+          {
+            text: "The business is actually healthy.",
+            score: 1
+          }
+        ]
+      },
+
+      {
+        question:
+          "If you stopped working for 30 days, what would happen?",
+
+        answers: [
+          {
+            text: "Everything would probably stop.",
+            score: 5
+          },
+          {
+            text: "Sales would drop significantly.",
+            score: 4
+          },
+          {
+            text: "The team could keep things moving.",
+            score: 2
+          },
+          {
+            text: "The business would run normally.",
+            score: 1
+          }
+        ]
+      },
+
+      {
+        question:
+          "Looking back, what do you believe caused the biggest damage?",
+
+        answers: [
+          {
+            text: "I built before validating.",
+            score: 5
+          },
+          {
+            text: "I ran out of money.",
+            score: 5
+          },
+          {
+            text: "I trusted the wrong people.",
+            score: 4
+          },
+          {
+            text: "I scaled before the business was ready.",
+            score: 4
+          }
+        ]
+      }
+
+    ];
+
+
+    let currentStep = 0;
+    let answers = [];
+    let selectedAnswer = null;
+
+
+    const questionEl =
+      document.getElementById("question");
+
+    const answersEl =
+      document.getElementById("answers");
+
+    const nextBtn =
+      document.getElementById("nextBtn");
+
+    const progressBar =
+      document.getElementById("progressBar");
+
+    const stepLabel =
+      document.getElementById("stepLabel");
+
+    const stepIndicator =
+      document.getElementById("stepIndicator");
+
+    const questionArea =
+      document.getElementById("questionArea");
+
+    const result =
+      document.getElementById("result");
+
+    const resultScore =
+      document.getElementById("resultScore");
+
+    const resultTitle =
+      document.getElementById("resultTitle");
+
+    const resultText =
+      document.getElementById("resultText");
+
+    const restartBtn =
+      document.getElementById("restartBtn");
+
+
+    function renderQuestion() {
+
+      const question =
+        questions[currentStep];
+
+      selectedAnswer = null;
+
+      nextBtn.disabled = true;
+
+      questionEl.textContent =
+        question.question;
+
+      stepLabel.textContent =
+        `Step ${String(currentStep + 1).padStart(2, "0")} / 03`;
+
+      stepIndicator.textContent =
+        `Question ${currentStep + 1} of 3`;
+
+      progressBar.style.width =
+        `${((currentStep + 1) / 3) * 100}%`;
+
+      answersEl.innerHTML = "";
+
+
+      question.answers.forEach((answer, index) => {
+
+        const button =
+          document.createElement("button");
+
+        button.className = "answer";
+
+        button.innerHTML = `
+          <span>${answer.text}</span>
+          <span>→</span>
+        `;
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            document
+              .querySelectorAll(".answer")
+              .forEach(el =>
+                el.classList.remove("selected")
+              );
+
+            button.classList.add("selected");
+
+            selectedAnswer = answer.score;
+
+            nextBtn.disabled = false;
+
+          }
+        );
+
+        answersEl.appendChild(button);
+
+      });
+
+    }
+
+
+    nextBtn.addEventListener(
+      "click",
+      () => {
+
+        if (selectedAnswer === null) {
+          return;
+        }
+
+        answers.push(selectedAnswer);
+
+        if (currentStep < questions.length - 1) {
+
+          currentStep++;
+
+          renderQuestion();
+
+        } else {
+
+          showResult();
+
+        }
+
+      }
+    );
+
+
+    function showResult() {
+
+      const total =
+        answers.reduce(
+          (sum, value) => sum + value,
+          0
+        );
+
+      const max =
+        questions.length * 5;
+
+      const percentage =
+        Math.round((total / max) * 100);
+
+      questionArea.style.display =
+        "none";
+
+      result.classList.add("active");
+
+      resultScore.textContent =
+        `${percentage}%`;
+
+
+      if (percentage <= 40) {
+
+        resultTitle.textContent =
+          "You're bruised, not broken.";
+
+        resultText.textContent =
+          "Your business has problems, but the damage appears manageable. The next move is not to panic or scale. Find the one constraint that is actually holding the business back.";
+
+      } else if (percentage <= 70) {
+
+        resultTitle.textContent =
+          "You're in the danger zone.";
+
+        resultText.textContent =
+          "There are structural problems underneath the surface. More effort may not solve them. You need to identify what is broken before putting more money, people or time into the business.";
+
+      } else {
+
+        resultTitle.textContent =
+          "The business is bleeding.";
+
+        resultText.textContent =
+          "This is not a motivation problem. It is a survival problem. Stop adding complexity. Protect cash, identify the root failure and decide what deserves to survive.";
+
+      }
+
+    }
+
+
+    restartBtn.addEventListener(
+      "click",
+      () => {
+
+        currentStep = 0;
+        answers = [];
+
+        result.classList.remove("active");
+
+        questionArea.style.display =
+          "block";
+
+        renderQuestion();
+
+        document
+          .getElementById("assessment")
+          .scrollIntoView({
+            behavior: "smooth"
+          });
+
+      }
+    );
+
+
+    /* =========================
+       STORY FORM
+    ========================== */
+
+    const storyForm =
+      document.getElementById("storyForm");
+
+    const successMessage =
+      document.getElementById("successMessage");
+
+
+    storyForm.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+
+        const storyData = {
+
+          business:
+            document.getElementById("business").value,
+
+          failure:
+            document.getElementById("failure").value,
+
+          amount:
+            document.getElementById("amount").value,
+
+          story:
+            document.getElementById("story").value,
+
+          anonymous:
+            document.getElementById("anonymous").checked,
+
+          submittedAt:
+            new Date().toISOString()
+
+        };
+
+
+        /*
+          DEMO MODE
+
+          Hiện tại dữ liệu chỉ được lưu
+          vào LocalStorage của trình duyệt.
+
+          Khi nối backend, thay đoạn này
+          bằng fetch("/api/stories", {...})
+          hoặc Supabase.
+        */
+
+        const existingStories =
+          JSON.parse(
+            localStorage.getItem(
+              "failureRawStories"
+            ) || "[]"
+          );
+
+        existingStories.push(storyData);
+
+        localStorage.setItem(
+          "failureRawStories",
+          JSON.stringify(existingStories)
+        );
+
+
+        successMessage.style.display =
+          "block";
+
+        storyForm.reset();
+
+        document.getElementById(
+          "anonymous"
+        ).checked = true;
+
+      }
+    );
+
+
+    /* =========================
+       INITIALIZE
+    ========================== */
+
+    renderQuestion();
+
+  </script>
+
+</body>
+</html>

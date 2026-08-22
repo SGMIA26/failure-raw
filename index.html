@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>FAILURE/RAW — Business Autopsy</title>
+  <meta name="description" content="FAILURE/RAW — Anonymous business failure stories, founder interviews and a real business autopsy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="logo">FAILURE<span>/</span>RAW</a>
+      <div class="nav-links">
+        <a href="#assessment" data-i18n="navAssessment">Diagnosis</a>
+        <a href="#interview" data-i18n="navInterview">Interview</a>
+        <a href="#stories" data-i18n="navStories">Stories</a>
+        <a href="#submit" class="nav-cta" data-i18n="navCta">Tell Your Story →</a>
+      </div>
+      <button class="lang-btn" id="langBtn" type="button">VI / EN</button>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow" data-i18n="eyebrow">The Business Failure Project</div>
+        <h1 data-i18n-html="heroTitle">Nobody talks<br>about the <span class="accent">failure.</span></h1>
+        <p class="hero-copy" data-i18n="heroCopy">We collect the stories entrepreneurs usually hide. The bad decisions. The money lost. The people who left. The businesses that didn't make it.</p>
+        <div class="hero-actions">
+          <a href="#assessment" class="btn btn-primary" data-i18n="heroBtn1">Diagnose My Business →</a>
+          <a href="#submit" class="btn btn-dark" data-i18n="heroBtn2">Submit My Story</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="container stats-grid">
+        <div class="stat"><div class="stat-number">01</div><div class="stat-label" data-i18n="stat1">Failure before success</div></div>
+        <div class="stat"><div class="stat-number">100%</div><div class="stat-label" data-i18n="stat2">Anonymous stories accepted</div></div>
+        <div class="stat"><div class="stat-number">0</div><div class="stat-label" data-i18n="stat3">Perfect entrepreneurs</div></div>
+      </div>
+    </div>
+
+    <section id="assessment" class="assessment">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="section-number">01 / <span data-i18n="asmNumLabel">BUSINESS AUTOPSY</span></div>
+            <h2 data-i18n-html="asmTitle">How badly<br>are you hurt?</h2>
+          </div>
+          <p class="section-description" data-i18n="asmDesc">Three uncomfortable questions. No consultants. No motivational bullshit. Just an honest snapshot of where your business is today.</p>
+        </div>
+
+        <div class="assessment-box">
+          <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
+          <div class="assessment-content">
+            <div id="questionArea">
+              <div id="stepLabel" class="step-label">Step 01 / 03</div>
+              <div id="question" class="question"></div>
+              <div id="answers" class="answers"></div>
+              <div class="assessment-footer">
+                <div id="stepIndicator" class="step-indicator">Question 1 of 3</div>
+                <button id="nextBtn" class="btn btn-primary" disabled data-i18n="continueBtn">Continue →</button>
+              </div>
+            </div>
+
+            <div id="result" class="result">
+              <div class="step-label" data-i18n="resultLabel">YOUR BUSINESS AUTOPSY</div>
+              <div id="resultScore" class="result-score">0%</div>
+              <div id="resultTitle" class="result-title">—</div>
+              <p id="resultText" class="result-text">—</p>
+              <div class="hero-actions">
+                <button id="restartBtn" class="btn btn-dark" data-i18n="restartBtn">Run Again</button>
+                <a href="#submit" class="btn btn-primary" data-i18n="heroBtn2b">Tell Your Story →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="interview">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="section-number">02 / <span data-i18n="intNumLabel">INTERVIEW</span></div>
+            <h2 data-i18n="intTitle">Interview Question Set</h2>
+          </div>
+          <p class="section-description" data-i18n="intDesc">Đây là xương sống để biến một câu chuyện thất bại thành một cuộc phỏng vấn có chiều sâu.</p>
+        </div>
+        <div class="questions-grid">
+          <article class="qcard"><div class="n">01</div><h3>THE BET / VÁN CƯỢC</h3><p>What did you believe? — Anh/chị đã tin điều gì đến mức dám bỏ tiền, thời gian và danh tiếng vào nó?</p></article>
+          <article class="qcard"><div class="n">02</div><h3>THE SIGNAL / TÍN HIỆU</h3><p>What did you see? — Tín hiệu đầu tiên cho thấy giả định đó có thể sai là gì?</p></article>
+          <article class="qcard"><div class="n">03</div><h3>THE DENIAL / PHỦ NHẬN</h3><p>Why didn't you stop? — Tại sao anh/chị vẫn tiếp tục dù đã thấy dấu hiệu?</p></article>
+          <article class="qcard"><div class="n">04</div><h3>THE COST / CÁI GIÁ</h3><p>What did failure cost? — Tiền, nợ, thời gian, quan hệ, sức khỏe, danh tiếng: cái giá nào đau nhất?</p></article>
+          <article class="qcard"><div class="n">05</div><h3>THE BREAK / ĐIỂM GÃY</h3><p>What finally broke? — Khoảnh khắc nào khiến anh/chị buộc phải thừa nhận: "Nó đã thất bại"?</p></article>
+          <article class="qcard"><div class="n">06</div><h3>THE LESSON / BÀI HỌC</h3><p>What would you do differently? — Nếu quay lại ngày đầu tiên với kiến thức hôm nay, anh/chị sẽ làm khác đúng 3 việc nào?</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="stories">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="section-number">03 / <span data-i18n="storiesNumLabel">THE ARCHIVE</span></div>
+            <h2 data-i18n-html="storiesTitle">Real stories.<br>No bullshit.</h2>
+          </div>
+          <p class="section-description" data-i18n="storiesDesc">Every failed company leaves something behind. A lesson. A scar. A decision someone else doesn't have to repeat.</p>
+        </div>
+        <div id="storyGrid" class="story-grid"></div>
+      </div>
+    </section>
+
+    <section id="submit" class="submit-section">
+      <div class="container submit-grid">
+        <div class="submit-intro">
+          <div class="section-number">04 / <span data-i18n="submitNumLabel">YOUR STORY</span></div>
+          <h2 data-i18n-html="submitTitle">Tell us<br>what went<br>wrong.</h2>
+          <p data-i18n="submitP1">Your failure may be exactly what another founder needs to hear before making the same mistake.</p>
+          <p data-i18n="submitP2">No polished LinkedIn story. No fake success ending. Just what actually happened.</p>
+        </div>
+
+        <form id="storyForm" class="form">
+          <div class="steps-bar">
+            <div class="step active" data-step="1"><span>01</span> — <span data-i18n="s1">THE BET / VÁN CƯỢC</span></div>
+            <div class="step" data-step="2"><span>02</span> — <span data-i18n="s2">THE MISTAKE / SAI LẦM</span></div>
+            <div class="step" data-step="3"><span>03</span> — <span data-i18n="s3">THE DAMAGE / HẬU QUẢ</span></div>
+          </div>
+          <div class="form-body">
+
+            <div class="stepcontent active" data-content="1">
+              <div class="field">
+                <label data-i18n="fBusiness">Business / Industry</label>
+                <input name="business" type="text" placeholder="e.g. F&amp;B, SaaS, Retail..." required>
+              </div>
+              <div class="field">
+                <label data-i18n="q1">What was the original idea?</label>
+                <div class="hint" data-i18n="h1">What did you believe customers would buy, and why?</div>
+                <textarea name="idea" required></textarea>
+              </div>
+              <div class="field">
+                <label data-i18n="q2">Your biggest assumption?</label>
+                <textarea name="assumption" required></textarea>
+              </div>
+            </div>
+
+            <div class="stepcontent" data-content="2">
+              <div class="field">
+                <label data-i18n="q3">Biggest wrong decision</label>
+                <select name="mistake" required>
+                  <option value="" data-i18n="choose">— SELECT —</option>
+                  <option data-i18n="m1">Wrong product</option>
+                  <option data-i18n="m2">Wrong market</option>
+                  <option data-i18n="m3">Wrong people / team</option>
+                  <option data-i18n="m4">Wrong financial decision / cash flow</option>
+                  <option data-i18n="m5">Wrong timing</option>
+                  <option data-i18n="m6">Failed to stop / scaled too early</option>
+                  <option data-i18n="m7">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label data-i18n="q4">When did you know it was going down?</label>
+                <textarea name="doomsday" required></textarea>
+              </div>
+            </div>
+
+            <div class="stepcontent" data-content="3">
+              <div class="field">
+                <label data-i18n="q5">What did it really cost?</label>
+                <div class="grid2">
+                  <input name="money" data-i18n-placeholder="phMoney" placeholder="Money">
+                  <input name="time" data-i18n-placeholder="phTime" placeholder="Time">
+                </div>
+              </div>
+              <div class="field">
+                <label data-i18n="q6">Message to a founder repeating your path</label>
+                <textarea name="message" required></textarea>
+              </div>
+              <label class="anonymous">
+                <input type="checkbox" name="anonymous" checked>
+                <span data-i18n="anon">Keep my story completely anonymous. Do not publish my name or identifying information.</span>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-dark" id="prevBtn" data-i18n="back">← Back</button>
+              <button type="button" class="btn btn-primary" id="nextFormBtn" data-i18n="next">Next →</button>
+              <button type="submit" class="btn btn-danger" id="submitBtn" style="display:none" data-i18n="submitStory">Submit Story →</button>
+            </div>
+
+            <div id="successMessage" class="success-message" data-i18n="success">✓ Story received. Thank you for being honest.</div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="social">
+      <div class="container">
+        <div class="section-number" data-i18n="followLabel">FOLLOW THE PROJECT</div>
+        <h2 data-i18n-html="socialTitle">Failure is not<br>the end of the story.</h2>
+        <p data-i18n="socialDesc">Follow the project as we document real entrepreneurs, real failures and the lessons hidden inside them.</p>
+        <div class="social-links">
+          <a href="https://facebook.com/" target="_blank" class="social-link">Facebook ↗</a>
+          <a href="https://instagram.com/" target="_blank" class="social-link">Instagram ↗</a>
+          <a href="https://youtube.com/" target="_blank" class="social-link">YouTube ↗</a>
+          <a href="https://tiktok.com/" target="_blank" class="social-link">TikTok ↗</a>
+          <a href="mailto:hello@failureraw.com" class="social-link">Email ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>FAILURE/RAW © 2026</div>
+      <div data-i18n="footerNote">Built around the stories nobody posts.</div>
+    </div>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
