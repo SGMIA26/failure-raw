@@ -25,12 +25,18 @@ Form "Gửi câu chuyện" lưu thật vào D1 database `failure-raw-db`, bảng
 - **POST /api/stories** — lưu câu chuyện mới với `status='pending'` (chưa công khai).
 - **GET /api/stories** — chỉ trả về câu chuyện có `status='published'`, dùng để hiển thị trong mục Câu chuyện.
 
-Điều này khớp với cam kết trên site ("nếu câu chuyện đủ thật, chúng tôi sẽ liên hệ phỏng vấn") — câu chuyện gửi lên **không tự động hiển thị công khai**, bạn cần duyệt trước. Cách duyệt: vào Cloudflare Dashboard → Workers & Pages → failure-raw → D1 → mở database `failure-raw-db`, chạy:
-```sql
-SELECT * FROM stories WHERE status = 'pending';        -- xem câu chuyện mới
-UPDATE stories SET status = 'published' WHERE id = X;   -- duyệt cho hiển thị công khai
-```
+Điều này khớp với cam kết trên site ("nếu câu chuyện đủ thật, chúng tôi sẽ liên hệ phỏng vấn") — câu chuyện gửi lên **không tự động hiển thị công khai**, bạn cần duyệt trước.
+
 Nếu API không phản hồi được (ví dụ mở `index.html` trực tiếp bằng file://, không qua Cloudflare), form sẽ tự fallback lưu vào `localStorage` để demo không bị vỡ.
+
+## 🔐 Trang quản trị — duyệt câu chuyện
+👉 **https://failure-raw.pages.dev/admin**
+
+Đăng nhập bằng mật khẩu quản trị (biến `ADMIN_PASSWORD`, đã lưu dưới dạng secret trong Cloudflare Pages). Tại đây bạn có thể xem tất cả câu chuyện đã gửi (Chờ duyệt / Đã đăng / Đã từ chối / Tất cả) và bấm **Duyệt & đăng** hoặc **Từ chối** trực tiếp, không cần chạy SQL thủ công.
+
+- **Đổi mật khẩu admin:** Cloudflare Dashboard → Workers & Pages → failure-raw → Settings → Variables and secrets (làm ở cả Production và Preview) → sửa giá trị `ADMIN_PASSWORD`.
+- Phiên đăng nhập admin hết hạn sau 8 giờ (cookie `HttpOnly`, `Secure`, ký bằng HMAC — không lưu session ở server).
+- Nếu cần xem/sửa dữ liệu thô, vẫn có thể vào Cloudflare Dashboard → D1 → `failure-raw-db` → chạy SQL trực tiếp trên bảng `stories`.
 
 ## 🎯 Mục tiêu dự án
 Dự án này được xây dựng với tư duy "giải phẫu" thay vì "tư vấn":
