@@ -29,7 +29,7 @@ Dự án này được xây dựng với tư duy "giải phẫu" thay vì "tư v
 Dự án được xây dựng với tinh thần **Minimalist & Performance**:
 * **Frontend:** HTML5, CSS3 (Modern Flexbox/Grid), Vanilla JavaScript.
 * **Design:** Dark-mode centric, mobile-first responsive.
-* **Deployment:** GitHub (source) + Cloudflare Pages (hosting). Redeploy sau khi sửa code bằng: `npx wrangler pages deploy . --project-name failure-raw`.
+* **Deployment:** GitHub (source) + Cloudflare Pages (hosting), đã kết nối Git integration — chỉ cần `git push` lên nhánh `main`, Cloudflare tự động build & deploy lại, không cần chạy lệnh thủ công.
 
 ## 🚀 Tính năng chính
 - **Responsive Design:** Trải nghiệm hoàn hảo từ màn hình điện thoại đến desktop.
